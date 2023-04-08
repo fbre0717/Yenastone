@@ -1,5 +1,5 @@
 # Yenastone
 
-"""
+```
 python newgame.py
-"""
+```
