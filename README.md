@@ -1,1 +1,5 @@
 # Yenastone
+
+"""
+python newgame.py
+"""
