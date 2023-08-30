@@ -4,3 +4,4 @@
 ```
 python newgame.py
 ```
+게임 개발 및 강화학습
