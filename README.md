@@ -11,7 +11,7 @@
 pip install -r requirements.txt
 ```
 ```
-python newgame.py
+python src/newgame.py
 ```
 
 # 직접 게임하기
