@@ -1,4 +1,3 @@
-import copy
 import random
 import math
 
@@ -8,11 +7,6 @@ import stoneboard
 
 class game:
     def __init__(self,p1,p2, mode, viewmode):
-        # self.p1 = copy.deepcopy(p1)
-        # self.p2 = copy.deepcopy(p2)
-        # self.p1.opponent = self.p2
-        # self.p2.opponent = self.p1
-        # self.b = stoneboard.board(self.p1, self.p2)
         self.mode = mode
         self.viewmode = viewmode
         self.b = stoneboard.Board(p1, p2, self.mode, self.viewmode)
@@ -157,24 +151,41 @@ class MCTSmatch(match):
 # viewmode=True player가 human이 아니여도 모든 과정이 다 보인다
 
 # mode
-# 0 순서 random change 
-# 1 순서 고정  
-# 2 순서 고정 및 동전한닢
+    # 0 순서 random change 
+    # 1 순서 고정  
+    # 2 순서 고정 및 동전한닢
 
+# 변수 설명 m = MCTSmatch(p1, p2, p1C, p1I, p2C, p2I, n, mode, viewmode)
 
-
-Yena10 = player.MCTSplayer_new("Yena10", "Mage", card.Classic_Neutral, 10, 8.0/math.sqrt(2.0))
-Yuri10 = player.MCTSplayer_new("Yuri10", "Mage", card.Classic_Neutral, 10, 4.0/math.sqrt(2.0))
-
+# Random player
 Random = player.Randomplayer("Random", "Mage", card.Classic_Neutral)
-You = player.Humanplayer("You", "Mage", card.Classic_Neutral)
-
-# m = match(Yena10, Yuri10, 100, 0)
-m = match(Yena10, You, 1, 0, True)
-# m = match(Yena10, Random, 100, 0)
-
-# = MCTSmatch p1, p2, p1C, p1I, p2C, p2I, n, mode, viewmode
-# m = MCTSmatch(None, Random, 1, 16, 1, 1, 1, 0, True)
 
 
-m.run()
+if __name__ == '__main__':
+    print("Do you want to play?")
+    ans = input()
+    if(ans in ["y", "Y", "yes", "Yes", "YES"]):
+        # 직접 1판 play하고 싶은 경우
+        print("Please enter your name.")
+        username = input()
+        user = player.Humanplayer(username, "Mage", card.Classic_Neutral)
+        print("Please enter AI value(iteration = integer number).(Higher values mean higher intelligence, but also a longer time for the AI to act.)")
+
+        iter = int(input())
+        yena = player.MCTSplayer_new("Yena" + str(iter), "Mage", card.Classic_Neutral, iter, 4.0/math.sqrt(2.0))
+
+        # 게임시작
+        m = match(yena, user, 1, 0, True)
+    else:
+        # coef과 iter를 알기위한 실험용
+        print("Please enter first AI's coefficient and iteration.")
+        firCoef, firIter = map(int, input().split())
+        print("Please enter second AI's coefficient and iteration.")
+        secCoef, secIter = map(int, input().split())
+        print("Please enter number of game.")
+        gameNumber = int(input())
+        
+        # 게임시작
+        m = MCTSmatch(None, None, firCoef, firIter, secCoef, secIter, gameNumber, 0, False)
+
+    m.run()
