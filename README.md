@@ -16,7 +16,7 @@ python src/newgame.py
 
 # 직접 게임하기
 ```
-Do you want to play??
+Do you want to play?
 ```
 `Y`, `y`, `Yes`, `yes`를 입력하면 직접 게임을 할 수 있다.
 ```
